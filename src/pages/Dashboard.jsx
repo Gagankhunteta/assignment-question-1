@@ -19,11 +19,30 @@ const Dashboard = () => {
   const [searchText, setSearchText] = useState("");
   const [selectedOrderDetails, setSelectedOrderDetails] = useState({});
   const [selectedOrderTimeStamps, setSelectedOrderTimeStamps] = useState({});
+  const mockdataResult = mockData.results;
+
+  //Funtcion to set selected order details
+
+  const details = (value) => {
+    setSelectedOrderDetails(value);
+  };
+
+  //Function to set selected order of timestamps
+
+  const tempOrder = (value) =>{
+    setSelectedOrderTimeStamps(value);
+  };
+
+  //Filtering rows acording to seacrh text by search bar
+
+  const filteredRows = mockdataResult.filter((rows) =>
+    rows['&id'].toString().includes(searchText)
+  );
 
   return (
     <div>
       <div className={styles.header}>
-        <HeaderTitle primaryTitle="Orders" secondaryTitle="5 orders" />
+        <HeaderTitle primaryTitle="Orders" secondaryTitle="6 orders" />
         <div className={styles.actionBox}>
           <Search
             value={searchText}
@@ -47,7 +66,9 @@ const Dashboard = () => {
             title="Selected Order Timestamps"
           />
         </div>
-        <List rows={mockData.results} />
+
+        
+        <List rows={filteredRows} timeStamp={timestamps.results} currency={currency} order ={details} tempValue ={tempOrder}/>
       </div>
     </div>
   );
